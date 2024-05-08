@@ -1,4 +1,6 @@
-import Common._
+package kafkaperf.producer
+
+import Common.*
 import org.apache.kafka.clients.producer.{ProducerRecord, RecordMetadata}
 import zio.kafka.producer.{Producer, ProducerSettings}
 import zio.kafka.serde.Serde
@@ -24,7 +26,7 @@ object ZIOKafkaPerf extends ZIOAppDefault {
   }
 
   def withProducer[T](producerConfig: Map[String, Object])(task: Producer => Task[T]): Task[T] = {
-    val settings = ProducerSettings(List.empty).withProperties(producerConfig).withSendBufferSize(1024*1024*4)
+    val settings = ProducerSettings(List.empty).withProperties(producerConfig).withSendBufferSize(1024 * 1024 * 4)
     val zioTask: Task[T] = ZIO.scoped {
       Producer.make(settings).flatMap { kafkaProducer =>
         task(kafkaProducer)

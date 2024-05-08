@@ -1,4 +1,4 @@
-package monix
+package kafkaperf.producer.util
 
 import cats.effect.Resource
 import monix.eval.Task
@@ -7,7 +7,7 @@ import org.apache.kafka.common.serialization.Serializer
 
 import java.util.Properties
 
-object KafkaProducerResource {
+object MonixProducerResource {
 
   def apply[K, V](
                    producerProps: Properties,

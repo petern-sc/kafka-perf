@@ -1,3 +1,5 @@
+package kafkaperf.producer
+
 object Common {
   val messages = 1_000_000
 

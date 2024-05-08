@@ -1,4 +1,4 @@
-package monix
+package kafkaperf.producer.util
 
 import monix.eval.Task
 import org.apache.kafka.clients.producer.{Callback, Producer, ProducerRecord, RecordMetadata}
