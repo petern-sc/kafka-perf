@@ -1,6 +1,6 @@
 package kafkaperf.producer
 
-import Common.*
+import kafkaperf.Common.*
 import org.apache.kafka.clients.producer.{ProducerRecord, RecordMetadata}
 import zio.kafka.producer.{Producer, ProducerSettings}
 import zio.kafka.serde.Serde
@@ -10,7 +10,7 @@ object ZIOKafkaPerf extends ZIOAppDefault {
   override def run = {
     val zioJob: Task[Unit] = withProducer(config) { producer =>
 
-      val message = new ProducerRecord[Array[Byte], Array[Byte]]("escape.heartbeat", "test message".getBytes)
+      val message = new ProducerRecord[Array[Byte], Array[Byte]](topicName, "test message".getBytes)
       val publish: Task[List[Task[RecordMetadata]]] = ZIO.foreach((1 to messages).toList) { _ => producer.produceAsync(message, Serde.byteArray, Serde.byteArray) }
       val wait: Task[List[RecordMetadata]] = publish.flatMap(jobs => ZIO.foreach(jobs)(identity))
       val job1 = wait.timed.flatMap(result => zio.Console.printLine(s"Took unchunked ${result._1.toMillis}"))

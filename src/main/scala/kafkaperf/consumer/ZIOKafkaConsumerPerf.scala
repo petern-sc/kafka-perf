@@ -1,7 +1,7 @@
 package kafkaperf.consumer
 
-import kafkaperf.producer.Common
-import kafkaperf.producer.Common.*
+import kafkaperf.Common
+import Common.*
 import zio.kafka.consumer.{CommittableRecord, Consumer, ConsumerSettings, Offset, Subscription}
 import zio.*
 import zio.kafka.consumer.Consumer.AutoOffsetStrategy.Earliest
@@ -17,7 +17,7 @@ import java.io.IOException
 object ZIOKafkaConsumerPerf extends ZIOAppDefault {
 
   private val config = Map(
-    "bootstrap.servers" -> "kafka.docker:9092",
+    "bootstrap.servers" -> "localhost:9091",
   )
   private val maxParallelism = 5
 

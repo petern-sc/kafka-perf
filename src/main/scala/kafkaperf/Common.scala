@@ -1,12 +1,12 @@
-package kafkaperf.producer
+package kafkaperf
 
 object Common {
   val messages = 1_000_000
-  
-  val topicName = "escape.heartbeat"
+
+  val topicName = "test-topic-1"
 
   val config = Map(
-    "bootstrap.servers" -> "kafka.docker:9092",
+    "bootstrap.servers" -> "localhost:9091",
     "compression.type" -> "zstd",
     "batch.size" -> "200000",
     "linger.ms" -> "5",

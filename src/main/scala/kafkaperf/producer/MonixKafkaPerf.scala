@@ -1,6 +1,6 @@
 package kafkaperf.producer
 
-import Common.*
+import kafkaperf.Common.*
 import cats.effect.ExitCode
 import kafkaperf.producer.util.{MonixProducer, MonixProducerResource}
 import monix.eval.{Task, TaskApp}
@@ -16,7 +16,7 @@ object MonixKafkaPerf extends TaskApp {
 
   def monixProduce(): Task[Unit] = {
     MonixProducerResource(producerProps, new ByteArraySerde().serializer(), new ByteArraySerde().serializer()).use { producer =>
-      val message = new ProducerRecord[Array[Byte], Array[Byte]]("escape.heartbeat", "test message".getBytes)
+      val message = new ProducerRecord[Array[Byte], Array[Byte]](topicName, "test message".getBytes)
       val publish: Task[List[Task[RecordMetadata]]] = Task.traverse((1 to messages).toList) { _ => MonixProducer.send(producer, message) }
       val wait: Task[List[RecordMetadata]] = publish.flatMap(jobs => Task.traverse(jobs)(identity))
       val job1 = wait.timed.flatMap(result => Task(System.out.println(s"Task Took unchunked ${result._1.toMillis}")))
