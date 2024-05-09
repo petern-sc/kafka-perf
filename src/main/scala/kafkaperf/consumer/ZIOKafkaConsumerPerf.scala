@@ -15,17 +15,13 @@ import zio.kafka.consumer.diagnostics.Diagnostics
 import java.io.IOException
 
 object ZIOKafkaConsumerPerf extends ZIOAppDefault {
-
-  private val config = Map(
-    "bootstrap.servers" -> "localhost:9091",
-  )
   private val maxParallelism = 5
 
   override def run: RIO[Any, Any] = {
     consumerPlainStream.provide(
       Consumer.live,
       ZLayer.succeed(Diagnostics.NoOp),
-      ZLayer.succeed(ConsumerSettings(properties = config)
+      ZLayer.succeed(ConsumerSettings(properties = consumerConfig)
         .withOffsetRetrieval(Auto(Earliest))
         .withGroupId(s"test-consumer-${java.lang.System.currentTimeMillis()}")
         .withClientId("test")

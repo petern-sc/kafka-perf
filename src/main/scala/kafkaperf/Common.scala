@@ -5,6 +5,10 @@ object Common {
 
   val topicName = "test-topic-1"
 
+  val consumerConfig = Map(
+    "bootstrap.servers" -> "localhost:9091",
+  )
+  
   val config = Map(
     "bootstrap.servers" -> "localhost:9091",
     "compression.type" -> "zstd",
