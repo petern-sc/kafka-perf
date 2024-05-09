@@ -71,7 +71,6 @@ object ZIOKafkaConsumerPerf extends ZIOAppDefault {
   private def handleRecord(ref: Ref[Int], record: CommittableRecord[Option[Array[Byte]], Option[Array[Byte]]]): ZIO[Any, Nothing, Offset] = {
     for {
       _ <- ref.update(_ + 1)
-      _ <- ZIO.sleep(100.millis)
     } yield record.offset
   }
 
