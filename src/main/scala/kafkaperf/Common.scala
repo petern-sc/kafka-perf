@@ -8,7 +8,7 @@ object Common {
   val consumerConfig = Map(
     "bootstrap.servers" -> "localhost:9091",
   )
-  
+
   val config = Map(
     "bootstrap.servers" -> "localhost:9091",
     "compression.type" -> "zstd",
